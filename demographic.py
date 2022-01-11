@@ -12,7 +12,9 @@ def calculate_demographic_data(print_data=True):
     average_age_men = round( df.groupby('sex')['age'].mean()['Male'], 1 )
 
     # What is the percentage of people who have a Bachelor's degree?
-    percentage_bachelors = round( df['education'].value_counts(normalize=True)['Bachelors'] * 100.0, 1 )
+    percentage_bachelors = round (100 * df.loc[df["education"] == "Bachelors"].size / df.size, 1,)
+    
+
 
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
     # What percentage of people without advanced education make more than 50K?
@@ -33,6 +35,8 @@ def calculate_demographic_data(print_data=True):
 
     # What percentage of the people who work the minimum number of hours per week have a salary of >50K?
     num_min_workers = df.loc[df['hours-per-week'] == min_work_hours]
+    
+    
 
     rich_percentage = round(100.0 * (num_min_workers['salary'] == '>50K').sum() / len(num_min_workers) , 1 )
 
@@ -77,3 +81,5 @@ def calculate_demographic_data(print_data=True):
         highest_earning_country_percentage,
         'top_IN_occupation': top_IN_occupation
     }
+
+
